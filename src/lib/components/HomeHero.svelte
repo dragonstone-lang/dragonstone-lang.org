@@ -16,9 +16,6 @@
     // import BackgroundImageLight from '$images/hero-bg.svg';
     // import BackgroundImageDark from '$images/hero-bg.svg';
 
-    // Hero Background Grain
-    // import BackgroundGrain from '$images/grain.gif';
-
     // Hero Carousel Images
     // const CarImg1 = '$images/..';
     // const CarImg2 = '$images/..';
@@ -26,6 +23,12 @@
     // const CarImg4 = '$images/..';
     // const CarImg5 = '$images/..';
     // const CarImg6 = '$images/..';
+
+    // Hero Logo
+    import TypeLogo from '$logos/dragonstone-type.png';
+
+    // Hero Background Grain
+    // import BackgroundGrain from '$images/grain.gif';
 
     // Hero Constellation
     let canvasConstellation: HTMLCanvasElement;
@@ -35,62 +38,44 @@
         setColors: (star: string, line: string) => void 
     } | null = null;
 
-    function getColorsFrom(el: HTMLElement, mode: 'light' | 'dark') {
-        const styles = getComputedStyle(el);
-
-        if (mode === 'dark') {
-            const txt = styles.getPropertyValue('--txt-light-mode-secondary').trim();
-            const bg  = styles.getPropertyValue('--bg-light-mode-primary').trim();
-            return {
-            star: bg || 'rgba(255,255,255,0.15)',
-            line: txt || 'rgba(255,255,255,0.5)'
-            };
-        } else {
-            const txt = styles.getPropertyValue('--txt-dark-mode-secondary').trim();
-            const bg  = styles.getPropertyValue('--bg-dark-mode-primary').trim();
-            return {
-            star: bg || 'rgba(0,0,0,0.03)',
-            line: txt || 'rgba(0,0,0,0.35)'
-            };
-        }
-    }
-
     function getColors(mode: 'light' | 'dark') {
         const root = getComputedStyle(document.documentElement);
         
         if (mode === 'dark') {
-            const txt = root.getPropertyValue('--txt-light-mode-secondary').trim();
-            const bg = root.getPropertyValue('--bg-light-mode-primary').trim();
+            const txt = root.getPropertyValue('').trim();
+            const bg = root.getPropertyValue('').trim();
             return { 
-                star: bg, 
-                line: txt 
+                star: bg || 'oklch(0.8373 0 0)',
+                line: txt || 'oklch(0.8373 0 0 / 75%)'
             };
         } else {
-            const txt = root.getPropertyValue('--txt-dark-mode-secondary').trim();
-            const bg = root.getPropertyValue('--bg-dark-mode-primary').trim();
+            const txt = root.getPropertyValue('').trim();
+            const bg = root.getPropertyValue('').trim();
             return { 
-                star: bg, 
-                line: txt 
+                star: bg || 'oklch(0.2267 0 0)',
+                line: txt || 'oklch(0.2267 0 0 / 75%)'
             };
         }
     }
 
     onMount(() => {
         const initialMode = get(theme) as 'light' | 'dark';
-        // const initial = getColors(initialMode);
-        const initial = getColorsFrom(canvasConstellation, initialMode);
+        const initial = getColors(initialMode);
 
+        // Here be the custom options to set.
         api = constellation(canvasConstellation, {
             starColor: initial.star,
-            lineColor: initial.line
+            lineColor: initial.line,
+            restingStarOpacity: 0.25,
+            highlightStarOpacity: 1.0,
+            mouseRadius: 120
         });
 
         const unsub = theme.subscribe(($theme) => {
             if (!api) return;
 
             requestAnimationFrame(() => {
-                // const { star, line } = getColors($theme as 'light' | 'dark');
-                const { star, line } = getColorsFrom(canvasConstellation, $theme as 'light' | 'dark');
+                const { star, line } = getColors($theme as 'light' | 'dark');
                 api!.setColors(star, line);
             });
         });
@@ -102,7 +87,7 @@
     });
 </script>
 
-<hero class="hero">
+<hero id="hero">
     <!-- Hero Background -->
     <div class="hero-bg-container">
         <div class="hero-bg hero-bg-grid">
@@ -113,11 +98,6 @@
             <img class="hero-bg-container-image-dark" src={BackgroundImageDark}> </img>
             -->
         </div>
-        <canvas class="hero-bg-container-grain" width="848" height="607">
-            <!--
-            <img src={BackgroundGrain} alt="" class="hero-background-container-img-grain" loading="eager" width="1440" height="880"/>
-            -->
-        </canvas>
         <canvas bind:this={canvasConstellation}
             class="constellation" 
             id="constellation" 
@@ -125,47 +105,59 @@
             height="607"
             >
         </canvas>
+        <canvas class="hero-bg-container-grain" width="848" height="607">
+            <!--
+            <img src={BackgroundGrain} alt="" class="hero-bg-container-img-grain" loading="eager" width="1440" height="880"/>
+            -->
+        </canvas>
     </div>
     <!-- Hero Section -->
     <div class="hero">
         <div class="hero-contain">
             <div class="hero-text hero-container">
-
                 <!-- Hero Caption -->
-                <!--
                 <aside class="hero-caption">
-                    <a href="https://github.com/Vallereya" class="hero-caption-button">
-                        Check out my Repositories.
+                    <a href="https://github.com/Vallereya/dragonstone/releases" class="hero-caption-button">
+                        Latest Release:
                         <Button.Root>
-                                <span>
-                                    GitHub →
-                                </span>
+                            <span>
+                                v0.0.7
+                            </span>
                         </Button.Root>
                     </a>
                 </aside>
-                -->
-
+                <!-- Hero Logo -->
+                <div class="flex flex-row w-1/2">
+                    <img src={TypeLogo} alt="dragonstone" class="hero-bg-container-img-logo"/>
+                </div>
                 <!-- Hero Title -->
                 <div class="hero-head-title">
                     <h1>
-                        Hi!
+                        Power through complex systems.
                     </h1>
+                    <h2>
+                        Elegant by design.
+                        Relentless by default.
+                    </h2>
                 </div>
-
                 <!-- Hero Paragraph -->
                 <div class="hero-head-paragraph">
                     <p>
-                        under construction
+                        Dragonstone is a general-purpose, object-oriented programming 
+                        language. With a focus on happiness, productivity, and choice.
+                        With syntax inspired by Ruby, speed inspired by Crystal, it’s 
+                        both an interpreted and compiled language dynamic by default 
+                        with optional static type-checking. 
                     </p>
                 </div>
 
                 <!-- Hero Action Button -->
                 <!--
                 <div class="hero-action">
-                    <a href="/projects" class="hero-action-button">
+                    <a href="/start" class="hero-action-button">
                         <Button.Root>
                             <span>
-                                Projects →
+                                Get Started →
                             </span>
                         </Button.Root>
                     </a>
@@ -177,25 +169,25 @@
                 <aside class="hero-carousel-container">
                     <div class="contain">
                         <div class="hero-carousel-text">
-                            Projects by Me
+                            Thank You to Our Sponsors
                         </div>
                     </div>
                     <div class="hero-carousel">
                         <div class="hero-carousel-group">
-                            <img src={imgSrcImg1} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg2} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg3} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg4} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg5} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg6} alt="" loading="eager" width="150" height="50">
+                            <img src={CarImg1} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg2} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg3} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg4} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg5} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg6} alt="Sponsor" loading="eager" width="150" height="50">
                         </div>
                         <div class="hero-carousel-group">
-                            <img src={imgSrcImg1} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg2} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg3} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg4} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg5} alt="" loading="eager" width="150" height="50">
-                            <img src={imgSrcImg6} alt="" loading="eager" width="150" height="50">
+                            <img src={CarImg1} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg2} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg3} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg4} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg5} alt="Sponsor" loading="eager" width="150" height="50">
+                            <img src={CarImg6} alt="Sponsor" loading="eager" width="150" height="50">
                         </div>
                     </div>
                 </aside>
@@ -212,7 +204,7 @@
     }
 
     .hero {
-        height:                             100vh;
+        height:                             100%;
         width:                              100%;
     }
 
@@ -231,7 +223,8 @@
         contain:                            style;
     }
     
-    .hero-bg, .hero-bg-grid {
+    .hero-bg, 
+    .hero-bg-grid {
         z-index:                            var(--z-index-bg-art);
         contain:                            style;
     }
@@ -325,10 +318,10 @@
         z-index:                            var(--z-index-default);
     }
 
-    /* 
-    .hero-background-container-img-grain {
-
-    } 
+    /*
+    .hero-bg-container-img-grain {
+        
+    }
     */
 
     .hero-contain {
@@ -339,12 +332,6 @@
         margin-right:                       auto;
     }
 
-    /* 
-    .hero-text .hero-container {
-        
-    } 
-    */
-
     .constellation {
         position:                           absolute;
         inset:                              0;
@@ -354,18 +341,24 @@
         display:                            block;
     }
 
+    .hero-text, .hero-container {
+        width:                              100%;
+        height:                             100%;
+    } 
+     
+    /* 
     .hero-text {
-        margin-top:                         5rem;
-        margin-bottom:                      15rem;
-    }
-
+        margin-top:                         2.5rem;
+        margin-bottom:                      7.5rem;
+    } 
+    */
+    
     .hero-container {
         display:                            grid;
         text-align:                         center;
         place-items:                        center;
     }
 
-    /*
     .hero-caption {
         margin:                             var(--margin-hero-caption);
         width:                              fit-content;
@@ -377,7 +370,7 @@
         border:                             1px solid oklch(1 0 0 / 5%);
         padding:                            var(--container-link-padding);
         border-radius:                      var(--border-radius-rounded);
-        color:                              var(--text-secondary);
+        color:                              var(--txt-secondary);
         letter-spacing:                     var(--paragraph-letter-spacing);
         text-wrap:                          pretty;
         backdrop-filter:                    blur(5px);
@@ -385,33 +378,45 @@
         white-space:                        nowrap;
     }
 
-    .hero-caption:hover {
-        background:                         var(--border-transparent);
-    }
-
-    .hero-caption-button button {
-        color:                              var(--logo-color);
-    }
-    */
-
-    /* 
-    .hero-caption-button button:hover {
-        color:                              var(--logo-color-darker-accent);
-    }
-    */
-
-    /*
+    .hero-caption-button, 
     .hero-caption a {
         display:                            flex;
         align-items:                        center;
-        gap:                                var(--gap-hero-caption);
+        gap:                                var(--gap-hero-caption)
     }
 
-    .hero-caption:-webkit-any-link,
-    button:-webkit-any-link {
+    .hero-caption-button span {
+        color:                              var(--logo-color);
+    }
+
+    .hero-caption:hover {
+        background:                         var(--border-transparent);
+        transition:                         color 0.3s;
+    }
+
+    .hero-caption-button:hover span {
+        color:                              var(--logo-color-darker-accent);
+        transition:                         color 0.3s;
+    }
+
+    /*
+    .hero-caption:-webkit-any-link, .hero-caption a:-webkit-any-link {
         color:                              -webkit-link;
         cursor:                             pointer;
         text-decoration:                    none;
+    }
+    */
+
+    .hero-caption:hover, 
+    .hero-caption a:hover, 
+    .hero-caption-button:hover,
+    .hero-caption-button span:hover {
+        cursor:                             pointer;
+    }
+
+    /*
+    .hero-action-button:hover {
+        cursor:                             pointer;
     }
     */
 
@@ -419,7 +424,7 @@
         font-family:                        "Minimo Bold", sans-serif;
         color:                              var(--txt-primary);
         font-weight:                        var(--font-heavy-font-weight);
-        font-size:                          var(--font-hero-font-size);
+        font-size:                          var(--font-title-font-size);
         letter-spacing:                     var(--hero-letter-spacing);
         line-height:                        var(--hero-letter-spacing);
         max-width:                          24ch;
@@ -432,15 +437,23 @@
         margin-inline-end:                  0;
     }
 
-    .hero-head-paragraph p {
-        font-family:                        "Minimo Medium", sans-serif;
+    .hero-head-title h2 {
+        font-family:                        "Minimo", sans-serif;
+        letter-spacing:                     var(--subtitle-letter-spacing);
+        font-size:                          var(--font-subtitle-font-size);
+        margin-block-start:                 0.67em;
+        margin-block-end:                   0.67em;
+    }
+
+    .hero-head-paragraph {
+        font-family:                        "Minimo Light", sans-serif;
         letter-spacing:                     var(--title-letter-spacing);
         font-size:                          var(--font-paragraph-font-size);
         line-height:                        var(--font-paragraph-line-height);
         color:                              var(--txt-secondary);
         max-width:                          25rem;
-        margin-top:                         -2.5rem;
-        margin-bottom:                      2rem;
+        margin-top:                         0.5rem;
+        margin-bottom:                      1rem;
     }
 
     /*
@@ -459,7 +472,7 @@
         font-size:                          var(--font-button-font-size);
         font-weight:                        var(--font-medium-font-weight);
         line-height:                        var(--font-paragraph-line-height);
-        color:                              var(--text-primary);
+        color:                              var(--txt-primary);
         gap:                                var(--gap-hero-caption);
         padding:                            var(--container-button-padding);
         letter-spacing:                     var(--paragraph-letter-spacing);
@@ -468,23 +481,33 @@
         -webkit-backdrop-filter:            blur(5px);
         white-space:                        nowrap;
     }
+    */
 
-    .hero-action:hover {
-        background:                         var(--gradient-hover);
+    /*
+    .hero-action-button {
+        color:                              var(--txt-primary);
     }
 
-    .hero-action-button button {
-        color:                              var(--text-primary);
-    }
-
-    .hero-action-button button:hover {
-        color:                              var(--logo-color);
-    }
-
-    .hero-action-button a {
+    .hero-action-button span {
         display:                            flex;
         align-items:                        center;
         gap:                                var(--gap-hero-caption);
+    }
+
+    .hero-action:hover,
+    .hero-action-button:hover,
+    .hero-action-button:hover span {
+        cursor:                             pointer;
+    }
+    .hero-action:hover {
+        background:                         var(--gradient-hover);
+        transition:                         color 0.3s;
+    }
+
+    .hero-action:hover span, 
+    .hero-action-button:hover span {
+        color:                              var(--logo-color);
+        transition:                         color 0.3s;
     }
     */
 
@@ -526,7 +549,7 @@
         font-weight:                        var(--font-medium-font-weight);
         line-height:                        var(--font-paragraph-line-height);
         max-width:                          30rem;
-        color:                              var(--text-primary);
+        color:                              var(--txt-primary);
         text-wrap:                          pretty;
     }
 
@@ -565,4 +588,35 @@
         display:                            none;
     }
     */
+
+        /* Mobile - 360px */
+
+    @media only screen and (min-width: 0rem) {
+        #hero {
+            margin:                         auto;
+            width:                          100%;
+            box-sizing:                     border-box;
+            overflow:                       hidden;
+        }
+
+        #hero .hero-bg-container {
+            margin:                         auto;
+            width:                          100%;
+        }
+
+        #hero .hero {
+            margin:                         auto;
+            width:                          100%;
+        }
+    }
+
+    /* Tablet - 768px */
+    @media only screen and (min-width: 48rem) {
+
+    }
+
+    /* Small Desktop - 1024px */
+    @media only screen and (min-width: 64rem) {
+
+    }
 </style>

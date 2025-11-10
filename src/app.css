@@ -35,6 +35,7 @@
     --font-paragraph-line-height:           1.5rem;
     --font-hero-font-size:                  5rem;
     --font-title-font-size:                 2.5rem;
+    --font-subtitle-font-size:              1.5rem;
     --font-paragraph-font-size:             1.050rem;
     --font-label-font-size:                 1.0rem;
     --font-button-font-size:                0.875rem;
@@ -42,6 +43,7 @@
     --font-caption-font-size:               0.5rem;
     --hero-letter-spacing:                  -0.015rem;
     --title-letter-spacing:                 0.025rem;
+    --subtitle-letter-spacing:              0.050rem;
     --paragraph-letter-spacing:             0.01rem;
 
     /* Logo Variables */
@@ -176,8 +178,8 @@
 
 
     /* Loader Variables */
-    --loader-text-opacity:                  0.75;
-    --loader-text-size:                     var(--font-label-font-size);
+    --loader-txt-opacity:                   0.75;
+    --loader-txt-size:                      var(--font-label-font-size);
 
     /* Loading Animation Variables */
     --loading-anims-delay-0s:               0s;

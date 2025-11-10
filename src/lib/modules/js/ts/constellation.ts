@@ -5,6 +5,8 @@ export interface ConstellationOptions {
     maxVelocity?: number;
     connectionDistance?: number;
     mouseRadius?: number;
+    restingStarOpacity?: number;
+    highlightStarOpacity?: number;
 }
 
 interface Star {
@@ -14,6 +16,9 @@ interface Star {
     vy: number;
     size: number;
 }
+
+const clamp = (value: number, min: number, max: number): number =>
+    Math.max(min, Math.min(max, value));
 
 export function constellation(
     canvas: HTMLCanvasElement,
@@ -33,11 +38,21 @@ export function constellation(
         maxVelocity: 0.3,
         connectionDistance: 130,
         mouseRadius: 150,
+        restingStarOpacity: 0.55,
+        highlightStarOpacity: 0.95,
         ...options
     };
 
-    let starColor = options.starColor ?? 'rgba(255,255,255,0.8)';
-    let lineColor = options.lineColor ?? 'rgba(255,255,255,0.3)';
+    const restingStarOpacity = clamp(config.restingStarOpacity ?? 0.55, 0, 1);
+    const highlightStarOpacity = clamp(
+        config.highlightStarOpacity ?? 0.95,
+        restingStarOpacity,
+        1
+    );
+    const starOpacityRange = highlightStarOpacity - restingStarOpacity;
+
+    let starColor = options.starColor;
+    let lineColor = options.lineColor;
 
     function setColors(star: string, line: string) {
         starColor = star;
@@ -93,11 +108,28 @@ export function constellation(
         }
     }
 
+    function mouseInfluence(x: number, y: number): number {
+        if (mouse.x === null || mouse.y === null) return 0;
+
+        const dx = x - mouse.x;
+        const dy = y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist >= config.mouseRadius) return 0;
+
+        return 1 - dist / config.mouseRadius;
+    }
+
     function drawStar(star: Star) {
+        const influence = mouseInfluence(star.x, star.y);
+        const opacity = restingStarOpacity + starOpacityRange * influence;
+
+        ctx.save();
+        ctx.globalAlpha = opacity;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = starColor;
         ctx.fill();
+        ctx.restore();
     }
 
     function drawLines() {

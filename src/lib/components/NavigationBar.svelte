@@ -4,8 +4,8 @@
     import { Sun, Moon } from 'phosphor-svelte';
 
     import logo from '$icons/dragonstone.png';
-    import logoLight from '$icons/dragonstone-dark.png';
-    import logoDark  from '$icons/dragonstone-light.png';
+    // import logoLight from '$icons/dragonstone-dark.png';
+    // import logoDark  from '$icons/dragonstone-light.png';
 
     $: isDark = $theme === 'dark';
     $: isLight = $theme === 'light';
@@ -44,9 +44,9 @@
                 </NavigationMenu.List>
                 <NavigationMenu.List>
                     <NavigationMenu.Item>
-                        <NavigationMenu.Link href="/try">
+                        <NavigationMenu.Link href="https://github.com/Vallereya/dragonstone/">
                                 <span id="nav-hover">
-                                    <!-- try -->
+                                    source
                                 </span>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item>
@@ -55,7 +55,7 @@
                     <NavigationMenu.Item>
                         <NavigationMenu.Link href="https://github.com/Vallereya/dragonstone/releases">
                                 <span id="nav-hover">
-                                    <!-- install -->
+                                    install
                                 </span>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item>
@@ -249,12 +249,13 @@
             justify-content:                flex-start;
             align-items:                    flex-start;
             flex-wrap:                      wrap;
+            align-items:                    center;
             column-gap:                     1.5rem;
             row-gap:                        2.25rem;
         }
 
         #nav-bar .nav-bar-logo-group {
-            width:                          100%;
+            width:                          10%;
             position:                       relative;
         }
 

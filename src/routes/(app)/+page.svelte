@@ -25,7 +25,6 @@
         <Footer />
     </section>
     -->
-
 </main>
 
 <style>

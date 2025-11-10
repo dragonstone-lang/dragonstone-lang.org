@@ -1,0 +1,202 @@
+/* Imports */
+@import 'tailwindcss';
+
+/* Custom Font Imports */
+@import '$css/fonts.css';
+
+/* Custom Animation Imports */
+@import '$animations/animations.css';
+
+/* Custom Theme Imports */
+@import '$themes/light.css';
+@import '$themes/dark.css';
+
+/* Plugins */
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-animate';
+
+/* Global Variables */
+:root {
+    /* Font Variables */
+    --font-regular-font-family:             "Minimo", sans-serif;
+    --font-light-font-family:               "Minimo Light", sans-serif;
+    --font-medium-font-family:              "Minimo Medium", sans-serif;
+    --font-bold-font-family:                "Minimo Bold", sans-serif;
+    --font-normal-font-style:               normal;
+    --font-italic-font-style:               italic;
+    --font-ultra-light-font-weight:         100;
+    --font-light-font-weight:               300;
+    --font-medium-font-weight:              500;
+    --font-heavy-font-weight:               700;
+    --font-ultra-heavy-font-weight:         900;
+    --font-hero-line-height:                0.75rem;
+    --font-title-line-height:               2.5rem;
+    --font-paragraph-line-height:           1.5rem;
+    --font-hero-font-size:                  5rem;
+    --font-title-font-size:                 2.5rem;
+    --font-paragraph-font-size:             1.050rem;
+    --font-label-font-size:                 1.0rem;
+    --font-button-font-size:                0.875rem;
+    --font-link-font-size:                  0.75rem;
+    --font-caption-font-size:               0.5rem;
+    --hero-letter-spacing:                  -0.015rem;
+    --title-letter-spacing:                 0.025rem;
+    --paragraph-letter-spacing:             0.01rem;
+
+    /* Logo Variables */
+    --logo:                                 url("$icons/dragonstone.png");
+    --logo-light:                           url("$icons/dragonstone-light.png");
+    --logo-dark:                            url("$icons/dragonstone-dark.png");
+    --logo-type:                            url("$logos/dragonstone-logo-type.png");
+    --logo-type-light:                      url("$logos/dragonstone-logo-type-light.png");
+    --logo-type-dark:                       url("$logos/dragonstone-logo-type-dark.png");
+    --logo-nav-width:                       3.5rem;
+    --logo-nav-height:                      3.5rem;
+    --logo-type-nav-width:                  full;
+    --logo-type-nav-height:                 full;
+
+    /* Dragonstone Logo Color Variables */
+    --logo-color-lighter-accent:            var(--ds-base-200);
+    --logo-color:                           var(--ds-base-300);
+    --logo-color-darker-accent:             var(--ds-base-400);
+
+    /* Dragonstone Color Gradient Variables */
+    --ds-base-100:                          oklch(0.5085 0.2825 287.47);                /* #6B15F9 */
+    --ds-base-200:                          oklch(0.4793 0.2774 285.03);                /* #5E06EE; Lighter Accent */
+    --ds-base-300:                          oklch(0.442 0.2547 285.27);                 /* #5406D5; Primary Logo Color */
+    --ds-base-400:                          oklch(0.3732 0.2141 285.73);                /* #4204A9; Darker Accent */
+    --ds-base-500:                          oklch(0.3438 0.1956 286.38);                /* #3B0496 */
+    --ds-txt-accent-lighter:                var(--ds-base-200);
+    --ds-txt-accent:                        var(--ds-base-300);
+    --ds-txt-accent-darker:                 var(--ds-base-400);
+
+    /* Background Color Variables */
+    --bg-light-mode-base:                   oklch(0.9581 0 0);                          /* #F1F1F1; Dark Mode Primary Background Color */
+    --bg-light-mode-mask:                   oklch(0.8373 0 0);
+    --bg-light-mode-primary:                oklch(0.8373 0 0 / 75%);                    /* #C9C9C9BF; Light Mode Primary Background Color */
+    --bg-light-mode-secondary:              oklch(0.8767 0 0 / 75%);                    /* #D6D6D6BF; Light Mode Secondary Background Color */
+    --bg-light-mode-accent:                 oklch(0.9157 0 0 / 75%);                    /* #E3E3E3BF; Light Mode Accent Background Color */
+    --bg-dark-mode-base:                    oklch(0.1638 0 0);                          /* #0E0E0E; Dark Mode Primary Background Color */
+    --bg-dark-mode-mask:                    oklch(0.2267 0 0);
+    --bg-dark-mode-primary:                 oklch(0.2267 0 0 / 75%);                    /* #1D1D1DBF; Dark Mode Primary Background Color */
+    --bg-dark-mode-secondary:               oklch(0.2801 0 0 / 75%);                    /* #292929BF; Dark Mode Secondary Background Color */
+    --bg-dark-mode-accent:                  oklch(0.3311 0 0 / 75%);                    /* #363636BF; Dark Mode Accent Background Color */
+
+    /* Text Color Variables */
+    --txt-light-mode-primary:               var(--bg-dark-mode-secondary);
+    --txt-light-mode-secondary:             oklch(0.5192 0 0 / 75%);                    /* #696969BF; Light Mode Secondary Text */
+    --txt-dark-mode-primary:                var(--bg-light-mode-secondary);
+    --txt-dark-mode-secondary:              oklch(0.6746 0 0 / 75%);                    /* #969696BF; Dark Mode Secondary Text */
+    --txt-accent-lighter:                   var(--ds-txt-accent-lighter);
+    --txt-accent:                           var(--ds-txt-accent);
+    --txt-accent-darker:                    var(--ds-txt-accent-darker);
+
+    /* Border Variables */
+    --border-radius-rounded-edge:           0.75rem;
+    --border-radius-rounded:                1rem;
+    --border-radius-rounded-full:           2.25rem;
+    --border-light-mode:                    var(--txt-dark-mode-secondary);               /* Light Mode Border */
+    --border-dark-mode:                     var(--txt-light-mode-secondary);              /* Dark Mode Border */
+    --border-transparent-light-mode:        oklch(0.8767 0 0 / 15%);                    /* Transparent Light Mode Border */
+    --border-transparent-dark-mode:         oklch(0.2801 0 0 / 15%);                    /* Transparent Dark Mode Border */
+    --border-card-light-mode:               solid 0.075rem var(--bg-dark-mode-secondary); /* Light Mode Border Card */
+    --border-card-dark-mode:                solid 0.075rem var(--bg-light-mode-secondary);/* Dark Mode Border Card */
+    --border-card-transparent-light-mode:   solid 0.075rem oklch(0.8373 0 0 / 75%);     /* Transparent Light Mode Border */
+    --border-card-transparent-dark-mode:    solid 0.075rem oklch(0.2267 0 0 / 75%);     /* Transparent Dark Mode Border */
+
+    /* Highlight Variables */
+    --highlight-light-mode:                 oklch(0.6068 0 0 / 75%);                    /* #828282BF; Light Mode Highlight */
+    --highlight-dark-mode:                  oklch(0.5895 0 0 / 75%);                    /* #7D7D7DBF; Dark Mode Highlight */
+
+    /* Gradient Variables */
+    --gradient-light-mode:                  linear-gradient(0deg, var(--bg-light-mode-secondary) 95%, var(--bg-light-mode-accent));             /* Light Mode Gradient */
+    --gradient-hover-light-mode:            linear-gradient(0deg,  var(--bg-light-mode-secondary), var(--bg-light-mode-accent));                /* Light Mode Gradient Hover */
+    --gradient-dark-mode:                   linear-gradient(0deg, var(--bg-dark-mode-secondary) 95%, var(--bg-dark-mode-accent));               /* Dark Mode Gradient */
+    --gradient-hover-dark-mode:             linear-gradient(0deg, var(--bg-dark-mode-secondary), var(--bg-dark-mode-accent));                   /* Dark Mode Gradient Hover */
+
+    /* Shadow Variables */
+    --shadow-light-mode:                    0px 0.125rem 0.125rem oklch(0.8373 0 0 / 10%), 0em 0.25rem 0.25rem oklch(0.8373 0 0 / 15%);     /* Light Mode Shadow */
+    --shadow-dark-mode:                     0px 0.125rem 0.125rem oklch(0.2267 0 0 / 10%), 0em 0.25rem 0.25rem oklch(0.2267 0 0 / 15%);     /* Dark Mode Shadow */
+
+    /* Button Variables */
+    --button-active:                        var(--logo-color);                            /* Button on Hover */
+    --button-register-active-light:         var(--gradient-hover-light-mode);             /* Light Mode Background Button on Hover */
+    --button-register-active-dark:          var(--gradient-hover-dark-mode);              /* Dark Mode Background Button on Hover */
+
+    /* Footer Variables */
+    --footer-bg-light-mode:                 var(--bg-light-mode-primary);
+    --footer-bg-dark-mode:                  var(--bg-dark-mode-primary);
+
+    /* Scrollbar Variables */
+    --scrollbar-width:                      thin;
+    --scrollbar-color-light-mode:           var(--bg-light-mode-accent) var(--bg-light-mode-secondary);
+    --scrollbar-color-dark-mode:            var(--bg-dark-mode-accent) var(--bg-dark-mode-secondary);
+
+    /* State Variables */
+    --state-positive:                       oklch(0.5842 0.1418 146.12 / 75%);          /* #379144BF; Positive/Success State */
+    --state-negative:                       oklch(0.5028 0.2021 20.72 / 74.9%);         /* #BC002DBF; Negative/Danger State */
+    --state-signal:                         oklch(0.9062 0.1927 105.48 / 74.9%);        /* #F3E600BF; Signal/Warning State */
+    --state-focus:                          oklch(0.5625 0.2405 270.2 / 74.9%);         /* #455CFFBF; Focus/Info State */
+
+    /* Icon Variables */
+    --sun:                                  var(--logo-color);
+    --moon:                                 var(--txt-secondary);
+    --GithubLogo:                           var(--txt-primary);
+
+    /* Container & Padding Variables */
+    --container-nav-padding:                clamp(1rem, 5vw, 2.5rem) 1rem;
+    --container-section-padding:            clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
+    --container-contain-padding:            86rem;
+    --container-link-padding:               0.25rem 1rem;
+    --container-button-padding:             0.50rem 1.25rem;
+    --container-padding:                    1rem;
+
+    /* Margin Variables */
+    --margin-hero-caption:                  2rem auto 2rem auto;
+
+    /* Gap Variables */
+    --gap-hero-caption:                     0.625rem;
+    --gap:                                  3rem;
+
+    /* Z-Index Variables */
+    --z-index-bg-layer:                     -2;
+    --z-index-bg-art:                       -1;
+    --z-index-default:                      0;
+    --z-index-background:                   1;
+    --z-index-foreground:                   2;
+    --z-index-overlay-background:           3;
+    --z-index-overlay-foreground:           4;
+    --z-index-container-background:         5;
+    --z-index-container-foreground:         6;
+    --z-index-container-content:            7;
+    --z-index-container-button-background:  8;
+    --z-index-container-button-foreground:  9;
+    --z-index-container-button-content:     10;
+
+
+    /* Loader Variables */
+    --loader-text-opacity:                  0.75;
+    --loader-text-size:                     var(--font-label-font-size);
+
+    /* Loading Animation Variables */
+    --loading-anims-delay-0s:               0s;
+    --loading-anims-delay-01s:              0.1s;
+    --loading-anims-delay-02s:              0.2s;
+    --loading-anims-delay-03s:              0.3s;
+    --loading-anims-delay-04s:              0.4s;
+    --loading-anims-delay-05s:              0.5s;
+    --loading-anims-delay-06s:              0.6s;
+    --loading-anims-delay-07s:              0.7s;
+    --loading-anims-delay-08s:              0.8s;
+    --loading-anims-delay-09s:              0.9s;
+    --loading-anims-delay-1s:               1s;
+}
+
+/* TailwindCSS Add-On Variables */
+/* 
+@theme {
+    --color-txt-primary:                    var(--txt-primary);
+    --color-txt-secondary:                  var(--txt-secondary);
+}
+*/

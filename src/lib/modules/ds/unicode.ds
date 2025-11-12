@@ -1,0 +1,38 @@
+#[ 
+    Unicode Example
+]#
+
+#[
+    Example of a various unicode
+    passed as a string and with
+    args/params. It's grabbing
+    the unicode from stdlib from 
+    Crystal temporarily until I 
+    create my own, or might just 
+    keep the ffi for it; Undecided. 
+]#
+
+message = "❤️"
+echo message
+
+❤️ = "あ"
+echo ❤️
+
+
+class 🔥
+    あ = true
+  
+    def 道
+        if あ
+            echo "Hello!"
+        end
+    end
+end
+
+🔥.道
+
+def Saudação(اسم, อายุ)
+    echo "Hello, #{اسم}! You are #{อายุ}."
+end
+
+Saudação("Jules", 25)

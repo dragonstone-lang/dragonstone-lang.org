@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { get } from 'svelte/store';
     import { theme } from '$ts/theme';
     import { constellation } from '$ts/constellation';
-    import { get } from 'svelte/store';
     import { Button } from 'bits-ui';
 
     $: isDark = $theme === 'dark';
@@ -33,6 +33,12 @@
     // Hero Constellation
     let canvasConstellation: HTMLCanvasElement;
 
+    // GitHub Latest Release Tag
+    import { getFirstTagNamePart } from '$ts/github';
+    // Fallback latest tag
+    let latestTag = 'v0.0.0';
+    // let latestTag: string = 'v0.1.3';
+
     let api: { 
         destroy: () => void; 
         setColors: (star: string, line: string) => void 
@@ -57,8 +63,17 @@
             };
         }
     }
-
+    
     onMount(() => {
+        void (async () => {
+            try {
+                const { tagName } = await getFirstTagNamePart();
+                latestTag = tagName;
+            } catch (err) {
+                console.error('Failed to load latest tag:', err);
+            }
+        })();
+
         const initialMode = get(theme) as 'light' | 'dark';
         const initial = getColors(initialMode);
 
@@ -121,7 +136,7 @@
                         Latest Release:
                         <Button.Root>
                             <span>
-                                v0.0.7
+                                {latestTag}
                             </span>
                         </Button.Root>
                     </a>
@@ -145,9 +160,10 @@
                     <p>
                         Dragonstone is a general-purpose, object-oriented programming 
                         language. With a focus on happiness, productivity, and choice.
-                        With syntax inspired by Ruby, speed inspired by Crystal, it’s 
-                        both an interpreted and compiled language dynamic by default 
-                        with optional static type-checking. 
+                        It's syntax is inspired by Ruby, and speed inspired by Crystal,
+                        it is both an interpreted and compiled language, implicitly
+                        dynamic by default with optional static type-checking, and 
+                        explicitness.
                     </p>
                 </div>
 

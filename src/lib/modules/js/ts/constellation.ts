@@ -23,7 +23,16 @@ const clamp = (value: number, min: number, max: number): number =>
 export function constellation(
     canvas: HTMLCanvasElement,
     options: ConstellationOptions = {}
-): { destroy: () => void; setColors: (star: string, line: string) => void } {
+): {
+    destroy: () => void;
+    setColors: (star: string, line: string) => void;
+    setAppearance: (
+        star: string,
+        line: string,
+        restingOpacity?: number,
+        highlightOpacity?: number
+    ) => void;
+} {
     const ctx = canvas.getContext('2d');
 
     if (!ctx) {
@@ -43,13 +52,13 @@ export function constellation(
         ...options
     };
 
-    const restingStarOpacity = clamp(config.restingStarOpacity ?? 0.55, 0, 1);
-    const highlightStarOpacity = clamp(
+    let restingStarOpacity = clamp(config.restingStarOpacity ?? 0.55, 0, 1);
+    let highlightStarOpacity = clamp(
         config.highlightStarOpacity ?? 0.95,
         restingStarOpacity,
         1
     );
-    const starOpacityRange = highlightStarOpacity - restingStarOpacity;
+    let starOpacityRange = highlightStarOpacity - restingStarOpacity;
 
     let starColor = options.starColor;
     let lineColor = options.lineColor;
@@ -57,6 +66,28 @@ export function constellation(
     function setColors(star: string, line: string) {
         starColor = star;
         lineColor = line;
+    }
+
+    function setAppearance(
+        star: string,
+        line: string,
+        restingOpacity?: number,
+        highlightOpacity?: number
+    ) {
+        starColor = star;
+        lineColor = line;
+
+        if (restingOpacity !== undefined) {
+            restingStarOpacity = clamp(restingOpacity, 0, 1);
+        }
+        if (highlightOpacity !== undefined) {
+            highlightStarOpacity = clamp(
+                highlightOpacity,
+                restingStarOpacity,
+                1
+            );
+        }
+        starOpacityRange = highlightStarOpacity - restingStarOpacity;
     }
 
 
@@ -206,6 +237,7 @@ export function constellation(
             canvas.removeEventListener('mousemove', handleMouseMove);
             canvas.removeEventListener('mouseleave', handleMouseLeave);
         },
-        setColors
+        setColors,
+        setAppearance
     };
 }

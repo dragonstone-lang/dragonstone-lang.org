@@ -28,5 +28,17 @@ html.dark {
     --button-primary:                       oklch(0.8373 0 0);
     --button-txt-primary:                   oklch(0.2267 0 0);
 
+    --constellation-star:                   oklch(0.8767 0 0 / 35%);
+    --constellation-line:                   oklch(0.6746 0 0 / 25%);
+
     scrollbar-color:                        var(--bg-dark-mode-primary);
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+    color:                                  var(--shiki-dark) !important;
+    background-color:                       var(--shiki-dark-bg) !important;
+    font-style:                             var(--shiki-dark-font-style) !important;
+    font-weight:                            var(--shiki-dark-font-weight) !important;
+    text-decoration:                        var(--shiki-dark-text-decoration) !important;
 }

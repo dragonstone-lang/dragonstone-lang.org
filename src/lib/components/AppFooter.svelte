@@ -1,5 +1,10 @@
 <script lang="ts">
-    import { GithubLogo } from 'phosphor-svelte';
+    import {
+        GithubLogo,
+        YoutubeLogo,
+        RedditLogo,
+        DiscordLogo
+    } from 'phosphor-svelte';
     import logo from '$logos/dragonstone-logo-type.png';
     // import logoLight from '$logos/dragonstone-logo-type-light.png';
     // import logoDark  from '$logos/dragonstone-logo-type-dark.png';
@@ -27,19 +32,19 @@
                         <GithubLogo color="var(--GithubLogo)" weight="fill"/>
                     </span>
                 </a>
-                <a href="https://github.com/Vallereya/dragonstone" class="social-links">
+                <a href="https://youtube.com/@dragonstone-lang" class="social-links">
                     <span class="social-links-icons">
-                        <GithubLogo color="var(--GithubLogo)" weight="fill"/>
+                        <YoutubeLogo color="var(--YoutubeLogo)" weight="fill"/>
                     </span>
                 </a>
-                <a href="https://github.com/Vallereya/dragonstone" class="social-links">
+                <a href="https://reddit.com/r/dragonstone_lang/" class="social-links">
                     <span class="social-links-icons">
-                        <GithubLogo color="var(--GithubLogo)" weight="fill"/>
+                        <RedditLogo color="var(--RedditLogo)" weight="fill"/>
                     </span>
                 </a>
-                <a href="https://github.com/Vallereya/dragonstone" class="social-links">
+                <a href="https://discord.gg/gwwnAzrR" class="social-links">
                     <span class="social-links-icons">
-                        <GithubLogo color="var(--GithubLogo)" weight="fill"/>
+                        <DiscordLogo color="var(--DiscordLogo)" weight="fill"/>
                     </span>
                 </a>
             </div>
@@ -49,15 +54,70 @@
         <ul class="footer-nav-group">
             <li class="footer-nav-item">
                 <span class="footer-nav-item-title">
-                    Placeholder Title
+                    Site
                 </span>
             </li>
             <li class="footer-nav-item">
-                <a class="footer-nav-links" href="/#">
-                    Placeholder
+                <a class="footer-nav-links" href="https://dragonstone-lang.org">
+                    Home
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/docs">
+                    Documentation
                 </a>
             </li>
         </ul>
+        <ul class="footer-nav-group">
+            <li class="footer-nav-item">
+                <span class="footer-nav-item-title">
+                    Documentation
+                </span>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/docs/">
+                    Index
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/docs/getting-started">
+                    Getting Started
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/docs/introduction">
+                    Introduction
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/docs/specification">
+                    Specification
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/docs/advanced-specification">
+                    Advanced Specification
+                </a>
+            </li>
+        </ul>
+        <ul class="footer-nav-group">
+            <li class="footer-nav-item">
+                <span class="footer-nav-item-title">
+                    Community
+                </span>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="https://reddit.com/r/dragonstone_lang/">
+                    r/dragonstone-lang
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="https://discord.gg/gwwnAzrR">
+                    Discord
+                </a>
+            </li>
+        </ul>
+        <!--
         <ul class="footer-nav-group">
             <li class="footer-nav-item">
                 <span class="footer-nav-item-title">
@@ -70,30 +130,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="footer-nav-group">
-            <li class="footer-nav-item">
-                <span class="footer-nav-item-title">
-                    Placeholder Title
-                </span>
-            </li>
-            <li class="footer-nav-item">
-                <a class="footer-nav-links" href="/#">
-                    Placeholder
-                </a>
-            </li>
-        </ul>
-        <ul class="footer-nav-group">
-            <li class="footer-nav-item">
-                <span class="footer-nav-item-title">
-                    Placeholder Title
-                </span>
-            </li>
-            <li class="footer-nav-item">
-                <a class="footer-nav-links" href="/#">
-                    Placeholder
-                </a>
-            </li>
-        </ul>
+        -->
     </div>
     <!-- Bottom Footer -->
     <div class="footer-bottom">
@@ -103,13 +140,16 @@
         </span>
         <!-- Legal Links -->
         <a href="/legal/cookie" class="footer-bottom-copyright-link">
-            Cookie Policy
+            <!-- Cookie Policy -->
         </a>
         <a href="/legal/privacy" class="footer-bottom-copyright-link">
-            Privacy Policy
+            <!-- Privacy Policy -->
         </a>
         <a href="/legal/terms" class="footer-bottom-copyright-link">
-            Terms of Use
+            <!-- Terms of Use -->
+        </a>
+        <a href="/legal/license" class="footer-bottom-copyright-link">
+            <!-- License -->
         </a>
     </div>
 </footer>
@@ -120,8 +160,8 @@
         padding:                            0;
     }
 
-    .foot {
-        background:                         var(--footer-bg);
+    .footer {
+        /* background:                         var(--footer-bg); */
         letter-spacing:                     var(--paragraph-letter-spacing);
         font-family:                        "Minimo", sans-serif;
     }
@@ -221,8 +261,8 @@
         }
 
         #footer .footer-nav-group {
-            width:                          45%;
-            max-width:                      11.25rem;
+            width:                          100%;
+            max-width:                      none;
             padding:                        0;
             margin:                         0;
             display:                        flex;

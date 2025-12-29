@@ -32,36 +32,59 @@
 
     // Hero Constellation
     let canvasConstellation: HTMLCanvasElement;
+    let colorProbe: HTMLSpanElement | null = null;
 
     // GitHub Latest Release Tag
     import { getFirstTagNamePart } from '$ts/github';
-    // Fallback latest tag
+    // Fallback latest tag/on loading.
     let latestTag = 'v0.0.0';
-    // let latestTag: string = 'v0.1.3';
 
     let api: { 
         destroy: () => void; 
-        setColors: (star: string, line: string) => void 
+        setColors: (star: string, line: string) => void;
+        setAppearance: (
+            star: string,
+            line: string,
+            restingOpacity?: number,
+            highlightOpacity?: number
+        ) => void;
     } | null = null;
 
-    function getColors(mode: 'light' | 'dark') {
+    function resolveColor(value: string, fallback: string) {
+        if (!value) return fallback;
+
+        if (!colorProbe) {
+            colorProbe = document.createElement('span');
+            colorProbe.style.position = 'absolute';
+            colorProbe.style.visibility = 'hidden';
+            colorProbe.style.pointerEvents = 'none';
+            document.body.appendChild(colorProbe);
+        }
+
+        colorProbe.style.color = value;
+        return getComputedStyle(colorProbe).color || fallback;
+    }
+
+    function getAppearance(mode: 'light' | 'dark') {
         const root = getComputedStyle(document.documentElement);
-        
+        const star = root.getPropertyValue('--constellation-star').trim();
+        const line = root.getPropertyValue('--constellation-line').trim();
+
         if (mode === 'dark') {
-            const txt = root.getPropertyValue('').trim();
-            const bg = root.getPropertyValue('').trim();
             return { 
-                star: bg || 'oklch(0.8373 0 0)',
-                line: txt || 'oklch(0.8373 0 0 / 75%)'
-            };
-        } else {
-            const txt = root.getPropertyValue('').trim();
-            const bg = root.getPropertyValue('').trim();
-            return { 
-                star: bg || 'oklch(0.2267 0 0)',
-                line: txt || 'oklch(0.2267 0 0 / 75%)'
+                star: resolveColor(star, '--constellation-star'),
+                line: resolveColor(line, '--constellation-line'),
+                restingOpacity: 0.55,
+                highlightOpacity: 0.95
             };
         }
+
+        return { 
+            star: resolveColor(star, '--constellation-star'),
+            line: resolveColor(line, '--constellation-line'),
+            restingOpacity: 0.65,
+            highlightOpacity: 1.0
+        };
     }
     
     onMount(() => {
@@ -75,14 +98,14 @@
         })();
 
         const initialMode = get(theme) as 'light' | 'dark';
-        const initial = getColors(initialMode);
+        const initial = getAppearance(initialMode);
 
         // Here be the custom options to set.
         api = constellation(canvasConstellation, {
             starColor: initial.star,
             lineColor: initial.line,
-            restingStarOpacity: 0.25,
-            highlightStarOpacity: 1.0,
+            restingStarOpacity: initial.restingOpacity,
+            highlightStarOpacity: initial.highlightOpacity,
             mouseRadius: 120
         });
 
@@ -90,14 +113,17 @@
             if (!api) return;
 
             requestAnimationFrame(() => {
-                const { star, line } = getColors($theme as 'light' | 'dark');
-                api!.setColors(star, line);
+                const { star, line, restingOpacity, highlightOpacity } =
+                    getAppearance($theme as 'light' | 'dark');
+                api!.setAppearance(star, line, restingOpacity, highlightOpacity);
             });
         });
 
         return () => {
             api?.destroy();
             unsub();
+            colorProbe?.remove();
+            colorProbe = null;
         };
     });
 </script>
@@ -166,11 +192,16 @@
                         explicitness.
                     </p>
                 </div>
-
                 <!-- Hero Action Button -->
-                <!--
                 <div class="hero-action">
-                    <a href="/start" class="hero-action-button">
+                    <a href="https://github.com/Vallereya/dragonstone/releases" class="hero-action-button">
+                        <Button.Root>
+                            <span>
+                                Download →
+                            </span>
+                        </Button.Root>
+                    </a>
+                    <a href="/docs/getting-started" class="hero-action-button">
                         <Button.Root>
                             <span>
                                 Get Started →
@@ -178,7 +209,7 @@
                         </Button.Root>
                     </a>
                 </div>
-                -->
+               
 
                 <!-- Hero Carousel -->
                 <!--
@@ -318,13 +349,13 @@
         top:                                0;
         z-index:                            var(--z-index-default);
         overflow:                           hidden;
-        mix-blend-mode:                     color-dodge;
+        /* mix-blend-mode:                     color-dodge; */
     }
 
     .hero-bg-container-grain {
         width:                              100%;
         height:                             100%;
-        background:                         url('$images/grain.gif');
+        /* background:                         url('$images/grain.gif'); */
         opacity:                            0.04;
         contain:                            paint;
         object-fit:                         cover;
@@ -430,11 +461,11 @@
         cursor:                             pointer;
     }
 
-    /*
+    
     .hero-action-button:hover {
         cursor:                             pointer;
     }
-    */
+   
 
     .hero-head-title {
         font-family:                        "Minimo Bold", sans-serif;
@@ -472,7 +503,7 @@
         margin-bottom:                      1rem;
     }
 
-    /*
+    
     .hero-action {
         touch-action:                       manipulation;
         display:                            flex;
@@ -480,28 +511,31 @@
         text-align:                         center;
         width:                              fit-content;
         align-items:                        center;
-        background:                         var(--gradient);
-        border:                             var(--border);
-        border-top:                         1px solid var(--highlight);
-        box-shadow:                         var(--shadow);
-        border-radius:                      var(--border-radius-rounded-edge);
         font-size:                          var(--font-button-font-size);
         font-weight:                        var(--font-medium-font-weight);
         line-height:                        var(--font-paragraph-line-height);
         color:                              var(--txt-primary);
         gap:                                var(--gap-hero-caption);
-        padding:                            var(--container-button-padding);
         letter-spacing:                     var(--paragraph-letter-spacing);
         text-wrap:                          pretty;
+        white-space:                        nowrap;
+        margin-top:                         2.5rem;
+    }
+   
+    .hero-action-button {
+        display:                            inline-flex;
+        align-items:                        center;
+        justify-content:                    center;
+        padding:                            var(--container-button-padding);
+        color:                              var(--txt-primary);
+        gap:                                var(--gap-hero-caption);
+        background:                         var(--gradient);
+        border:                             var(--border);
+        border-top:                         1px solid var(--highlight);
+        box-shadow:                         var(--shadow);
+        border-radius:                      var(--border-radius-rounded-edge);
         backdrop-filter:                    blur(5px);
         -webkit-backdrop-filter:            blur(5px);
-        white-space:                        nowrap;
-    }
-    */
-
-    /*
-    .hero-action-button {
-        color:                              var(--txt-primary);
     }
 
     .hero-action-button span {
@@ -510,32 +544,39 @@
         gap:                                var(--gap-hero-caption);
     }
 
-    .hero-action:hover,
     .hero-action-button:hover,
     .hero-action-button:hover span {
         cursor:                             pointer;
     }
-    .hero-action:hover {
+    .hero-action-button:hover {
         background:                         var(--gradient-hover);
         transition:                         color 0.3s;
     }
 
-    .hero-action:hover span, 
     .hero-action-button:hover span {
         color:                              var(--logo-color);
         transition:                         color 0.3s;
     }
-    */
 
-    /*
+    @media (max-width: 768px) {
+        .hero-action {
+            flex-direction:                 column;
+            width:                          100%;
+            align-items:                    stretch;
+        }
+
+        .hero-action-button {
+            width:                          100%;
+        }
+    }
+   
     .hero-button:-webkit-any-link,
     button:-webkit-any-link {
         color:                              -webkit-link;
         cursor:                             pointer;
         text-decoration:                    none;
     }
-    */
-
+   
     /*
     .hero-carousel-container {
         max-width:                          100vw;

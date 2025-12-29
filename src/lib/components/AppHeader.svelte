@@ -1,6 +1,6 @@
 <script lang="ts">
     import Nav from "$components/NavigationBar.svelte";
-    import Hero from '$src/lib/components/HomeHero.svelte';
+    import Hero from '$components/HomeHero.svelte';
 </script>
 
 <header class="header">

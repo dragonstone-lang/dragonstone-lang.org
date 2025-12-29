@@ -1,13 +1,13 @@
 <script lang="ts">
-
+    
 </script>
 
-<main class="main">
+<section class="home-body-center">
 
-</main>
+</section>
 
 <style>
-    main {
+    .home-body-center {
         margin:                             0;
         padding:                            0;
     }

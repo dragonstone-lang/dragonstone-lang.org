@@ -144,7 +144,11 @@
     /* Icon Variables */
     --sun:                                  var(--logo-color);
     --moon:                                 var(--txt-secondary);
+    --list:                                 var(--txt-primary);
     --GithubLogo:                           var(--txt-primary);
+    --YoutubeLogo:                          var(--txt-primary);
+    --RedditLogo:                           var(--txt-primary);
+    --DiscordLogo:                          var(--txt-primary);
 
     /* Container & Padding Variables */
     --container-nav-padding:                clamp(1rem, 5vw, 2.5rem) 1rem;

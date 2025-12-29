@@ -1,7 +1,7 @@
 <script lang="ts">
     import { theme } from '$ts/theme';
     import { NavigationMenu, Label, Switch, Button } from 'bits-ui';
-    import { Sun, Moon } from 'phosphor-svelte';
+    import { Sun, Moon, List } from 'phosphor-svelte';
 
     import logo from '$icons/dragonstone.png';
     // import logoLight from '$icons/dragonstone-dark.png';
@@ -35,9 +35,16 @@
             <NavigationMenu.Root class="flex flex-row gap-4">
                 <NavigationMenu.List>
                     <NavigationMenu.Item>
+                        <!-- 
                         <NavigationMenu.Link href="https://docs.dragonstone-lang.org">
                                 <span id="nav-hover">
-                                    <!-- docs -->
+                                    docs
+                                </span>
+                        </NavigationMenu.Link>
+                        -->
+                        <NavigationMenu.Link href="/docs">
+                                <span id="nav-hover">
+                                    docs
                                 </span>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item>
@@ -55,7 +62,7 @@
                     <NavigationMenu.Item>
                         <NavigationMenu.Link href="https://github.com/Vallereya/dragonstone/releases">
                                 <span id="nav-hover">
-                                    install
+                                    download
                                 </span>
                         </NavigationMenu.Link>
                     </NavigationMenu.Item>

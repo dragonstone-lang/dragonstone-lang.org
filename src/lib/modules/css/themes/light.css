@@ -28,5 +28,17 @@ html.light {
     --button-primary:                       oklch(0.2267 0 0);
     --button-text-primary:                  oklch(0.8373 0 0);
 
+    --constellation-star:                   oklch(0.1638 0 0 / 35%);
+    --constellation-line:                   oklch(0.2801 0 0 / 25%);
+
     scrollbar-color:                        var(--bg-light-mode-primary);
+}
+
+html.light .shiki,
+html.light .shiki span {
+    color:                                  var(--shiki-light) !important;
+    background-color:                       var(--shiki-light-bg) !important;
+    font-style:                             var(--shiki-light-font-style) !important;
+    font-weight:                            var(--shiki-light-font-weight) !important;
+    text-decoration:                        var(--shiki-light-text-decoration) !important;
 }

@@ -139,18 +139,20 @@
             © <span id="copyright-year"> </span> <a class="footer-bottom-copyright-link" href="https://dragonstone-lang.org"> The Dragonstone Programming Language </a> All Right Reserved.
         </span>
         <!-- Legal Links -->
+        <!--
         <a href="/legal/cookie" class="footer-bottom-copyright-link">
-            <!-- Cookie Policy -->
+            Cookie Policy
         </a>
         <a href="/legal/privacy" class="footer-bottom-copyright-link">
-            <!-- Privacy Policy -->
+            Privacy Policy
         </a>
         <a href="/legal/terms" class="footer-bottom-copyright-link">
-            <!-- Terms of Use -->
+            Terms of Use
         </a>
         <a href="/legal/license" class="footer-bottom-copyright-link">
-            <!-- License -->
+            License
         </a>
+        -->
     </div>
 </footer>
 

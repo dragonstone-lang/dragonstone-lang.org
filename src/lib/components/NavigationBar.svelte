@@ -110,7 +110,7 @@
                     <!-- Discord Button -->
                     <NavigationMenu.List>
                         <NavigationMenu.Item>
-                            <NavigationMenu.Link href="https://discord.gg/gwwnAzrR">
+                            <NavigationMenu.Link href="https://discord.gg/WgD6kretmS">
                                     <span id="nav-hover">
                                         discord ↗
                                     </span>

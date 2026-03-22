@@ -42,7 +42,7 @@
                         <RedditLogo color="var(--RedditLogo)" weight="fill"/>
                     </span>
                 </a>
-                <a href="https://discord.gg/gwwnAzrR" class="social-links">
+                <a href="https://discord.gg/WgD6kretmS" class="social-links">
                     <span class="social-links-icons">
                         <DiscordLogo color="var(--DiscordLogo)" weight="fill"/>
                     </span>
@@ -112,7 +112,7 @@
                 </a>
             </li>
             <li class="footer-nav-item">
-                <a class="footer-nav-links" href="https://discord.gg/gwwnAzrR">
+                <a class="footer-nav-links" href="https://discord.gg/WgD6kretmS">
                     Discord
                 </a>
             </li>

@@ -67,6 +67,21 @@
                     Documentation
                 </a>
             </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="/eden">
+                    EDEN
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="https://github.com/Vallereya/dragonstone/">
+                    Source
+                </a>
+            </li>
+            <li class="footer-nav-item">
+                <a class="footer-nav-links" href="https://github.com/Vallereya/dragonstone/releases">
+                    Download
+                </a>
+            </li>
         </ul>
         <ul class="footer-nav-group">
             <li class="footer-nav-item">

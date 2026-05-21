@@ -51,6 +51,15 @@
                 </NavigationMenu.List>
                 <NavigationMenu.List>
                     <NavigationMenu.Item>
+                        <NavigationMenu.Link href="/eden">
+                                <span id="nav-hover">
+                                    eden
+                                </span>
+                        </NavigationMenu.Link>
+                    </NavigationMenu.Item>
+                </NavigationMenu.List>
+                <NavigationMenu.List>
+                    <NavigationMenu.Item>
                         <NavigationMenu.Link href="https://github.com/Vallereya/dragonstone/">
                                 <span id="nav-hover">
                                     source

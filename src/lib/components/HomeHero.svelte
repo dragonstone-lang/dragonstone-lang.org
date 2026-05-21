@@ -178,18 +178,19 @@
                     </h1>
                     <h2>
                         Elegant by design.
-                        Relentless by default.
+                        Robustness by default.
+                    </h2>
+                    <h2>
+                        The language behind EDEN.
                     </h2>
                 </div>
                 <!-- Hero Paragraph -->
                 <div class="hero-head-paragraph">
                     <p>
-                        Dragonstone is a general-purpose, object-oriented programming 
-                        language. With a focus on happiness, productivity, and choice.
-                        It's syntax is inspired by Ruby, and speed inspired by Crystal,
-                        it is both an interpreted and compiled language, implicitly
-                        dynamic by default with optional static type-checking, and 
-                        explicitness.
+                        Dragonstone is a general-purpose, object-oriented
+                        programming language built for happiness, productivity, 
+                        and choice. Interpreted or compiled. Implicitly dynamic, 
+                        with optional static type-checking when you want it.
                     </p>
                 </div>
                 <!-- Hero Action Button -->
@@ -209,7 +210,6 @@
                         </Button.Root>
                     </a>
                 </div>
-               
 
                 <!-- Hero Carousel -->
                 <!--

@@ -1,0 +1,1 @@
+import{f as s,a as c}from"../chunks/BX6HM5Ax.js";import"../chunks/D5gQM5p5.js";var n=s('<section id="docs-content"><header class="docs-hero svelte-9xvnv"><p class="docs-kicker svelte-9xvnv">Specification</p> <h1>Language Specification</h1> <p class="docs-lede svelte-9xvnv">(Coming Soon...)</p></header></section>');function i(e){var o=n();c(e,o)}export{i as component};

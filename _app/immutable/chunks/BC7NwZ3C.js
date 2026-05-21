@@ -1,0 +1,1 @@
+import{g as a,i as c,s as n,r as u,u as f,j as t,q as o}from"./BBrd3Qvs.js";function m(i){let e=0,r=n(0),s;return()=>{a()&&(c(r),u(()=>(e===0&&(s=f(()=>i(()=>t(r)))),e+=1,()=>{o(()=>{e-=1,e===0&&(s?.(),s=void 0,t(r))})})))}}export{m as c};
